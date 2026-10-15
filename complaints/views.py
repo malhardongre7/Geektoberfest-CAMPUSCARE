@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Count
+
 from .models import Complaint
 from .ml import (
     predict_category_with_confidence,
@@ -52,3 +55,23 @@ def home(request):
             }
 
     return render(request, "complaints/home.html", {"result": result})
+
+
+@staff_member_required
+def dashboard(request):
+    complaints = Complaint.objects.all().order_by("-created_at")
+
+    context = {
+        "complaints": complaints,
+        "total_complaints": complaints.count(),
+        "open_complaints": complaints.filter(status="Open").count(),
+        "duplicate_complaints": complaints.filter(is_duplicate=True).count(),
+        "high_priority": complaints.filter(priority="High").count(),
+        "category_stats": (
+            complaints.values("category")
+            .annotate(count=Count("id"))
+            .order_by("-count")
+        ),
+    }
+
+    return render(request, "complaints/dashboard.html", context)
