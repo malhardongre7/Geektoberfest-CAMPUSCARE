@@ -5,115 +5,316 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusCare | Staff Dashboard</title>
+
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #eef7ff, #f8fbff);
             color: #17324d;
         }
-        .container { max-width: 1200px; margin: auto; padding: 35px 20px; }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 20px;
+        }
+
         .hero {
             background: linear-gradient(135deg, #145da0, #1b8ca8);
-            color: white; padding: 30px; border-radius: 20px;
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
             margin-bottom: 25px;
         }
-        .hero h1 { margin: 0 0 10px; font-size: 34px; }
-        .hero p { margin: 0; color: #e4f4ff; line-height: 1.6; }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: 34px;
+        }
+
+        .hero p {
+            margin: 0;
+            color: #e4f4ff;
+            line-height: 1.6;
+        }
+
         .topbar {
-            display: flex; justify-content: space-between;
-            align-items: center; gap: 15px; flex-wrap: wrap;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
             margin-bottom: 22px;
         }
-        .topbar h2 { margin: 0; font-size: 22px; }
-        a { color: #145da0; font-weight: bold; text-decoration: none; }
+
+        .topbar h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        a {
+            color: #145da0;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
         .grid {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 16px; margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 25px;
         }
-        .metric, .card {
-            background: white; border: 1px solid #dce9f2;
-            border-radius: 16px; box-shadow: 0 6px 20px rgba(23,50,77,.05);
+
+        .metric,
+        .card {
+            background: white;
+            border: 1px solid #dce9f2;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(23, 50, 77, .05);
         }
-        .metric { padding: 22px; }
-        .metric small { display: block; color: #6b7d8c; margin-bottom: 12px; }
-        .metric strong { font-size: 30px; }
-        .blue { color: #145da0; }
-        .orange { color: #d9822b; }
-        .red { color: #d94841; }
-        .green { color: #16805c; }
-        .card { padding: 25px; margin-bottom: 25px; }
-        .card h2 { margin: 0 0 20px; font-size: 21px; }
+
+        .metric {
+            padding: 22px;
+        }
+
+        .metric small {
+            display: block;
+            color: #6b7d8c;
+            margin-bottom: 12px;
+        }
+
+        .metric strong {
+            font-size: 30px;
+        }
+
+        .blue {
+            color: #145da0;
+        }
+
+        .orange {
+            color: #d9822b;
+        }
+
+        .red {
+            color: #d94841;
+        }
+
+        .green {
+            color: #16805c;
+        }
+
+        .card {
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            margin: 0 0 20px;
+            font-size: 21px;
+        }
+
         .filters {
-            display: grid; grid-template-columns: 2fr repeat(4, 1fr);
-            gap: 10px; margin-bottom: 18px;
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
         }
-        input, select, button {
-            width: 100%; padding: 11px; border: 1px solid #ccdbe8;
-            border-radius: 8px; font: inherit; background: white;
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccdbe8;
+            border-radius: 8px;
+            font: inherit;
+            background: white;
             color: #17324d;
         }
+
         button {
-            background: #145da0; color: white; border: none;
-            cursor: pointer; font-weight: bold;
+            background: #145da0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
         }
-        button:hover { background: #104a80; }
+
+        button:hover {
+            background: #104a80;
+        }
+
         .filter-actions {
-            display: flex; gap: 12px; align-items: center;
+            display: flex;
+            gap: 12px;
+            align-items: center;
             margin-bottom: 20px;
         }
-        .filter-actions button { width: auto; }
-        .table-wrap { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 1050px; }
-        th, td {
-            text-align: left; padding: 14px 12px;
-            border-bottom: 1px solid #e8eef4; vertical-align: top;
+
+        .filter-actions button {
+            width: auto;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1050px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e8eef4;
+            vertical-align: top;
             font-size: 14px;
         }
+
         th {
-            color: #60758a; background: #f6faff; font-size: 12px;
-            text-transform: uppercase; letter-spacing: .4px;
+            color: #60758a;
+            background: #f6faff;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .4px;
         }
-        td.description { min-width: 230px; max-width: 320px; overflow-wrap: anywhere; line-height: 1.5; }
+
+        td.description {
+            min-width: 230px;
+            max-width: 320px;
+            overflow-wrap: anywhere;
+            line-height: 1.5;
+        }
+
         .tag {
-            display: inline-block; padding: 6px 10px; border-radius: 20px;
-            background: #edf5ff; color: #145da0; font-size: 12px;
-            font-weight: bold; white-space: nowrap;
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #edf5ff;
+            color: #145da0;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
         }
-        .tag-high, .tag-duplicate { background: #fff0ef; color: #c0392b; }
-        .tag-medium { background: #fff5e8; color: #a45c08; }
-        .tag-low { background: #eaf8f0; color: #16805c; }
-        .high-row { background: #fff8f7; }
-        .duplicate-row { box-shadow: inset 4px 0 #d94841; }
-        .status-form { display: flex; gap: 6px; min-width: 190px; }
-        .status-form select { min-width: 115px; padding: 7px; }
-        .status-form button { width: auto; padding: 8px 10px; }
-        .empty { text-align: center; color: #6b7d8c; padding: 35px 10px; }
+
+        .tag-high,
+        .tag-duplicate {
+            background: #fff0ef;
+            color: #c0392b;
+        }
+
+        .tag-medium {
+            background: #fff5e8;
+            color: #a45c08;
+        }
+
+        .tag-low {
+            background: #eaf8f0;
+            color: #16805c;
+        }
+
+        .high-row {
+            background: #fff8f7;
+        }
+
+        .duplicate-row {
+            box-shadow: inset 4px 0 #d94841;
+        }
+
+        .status-form {
+            display: flex;
+            gap: 6px;
+            min-width: 190px;
+        }
+
+        .status-form select {
+            min-width: 115px;
+            padding: 7px;
+        }
+
+        .status-form button {
+            width: auto;
+            padding: 8px 10px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #6b7d8c;
+            padding: 35px 10px;
+        }
+
         .category-row {
-            display: flex; justify-content: space-between; gap: 15px;
-            padding: 14px 0; border-bottom: 1px solid #e8eef4;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 14px 0;
+            border-bottom: 1px solid #e8eef4;
         }
-        .category-row:last-child { border-bottom: none; }
-        .category-row strong { color: #145da0; }
-        .footer { text-align: center; color: #6b7d8c; font-size: 13px; padding: 10px 0 20px; }
+
+        .category-row:last-child {
+            border-bottom: none;
+        }
+
+        .category-row strong {
+            color: #145da0;
+        }
+
+        .footer {
+            text-align: center;
+            color: #6b7d8c;
+            font-size: 13px;
+            padding: 10px 0 20px;
+        }
+
         @media (max-width: 900px) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-            .filters { grid-template-columns: repeat(2, 1fr); }
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filters {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
+
         @media (max-width: 500px) {
-            .grid, .filters { grid-template-columns: 1fr; }
-            .container { padding: 20px 12px; }
-            .hero h1 { font-size: 27px; }
-            .card { padding: 17px; }
+            .grid,
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px 12px;
+            }
+
+            .hero h1 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 17px;
+            }
         }
     </style>
 </head>
+
 <body>
 <div class="container">
+
     <header class="hero">
         <h1>CampusCare Staff Dashboard</h1>
-        <p>Manage campus complaints, monitor priorities, and review ML-generated classifications.</p>
+        <p>
+            Manage campus complaints, monitor priorities,
+            and review ML-generated classifications.
+        </p>
     </header>
 
     <div class="topbar">
@@ -121,55 +322,109 @@
         <a href="/">← Student Portal</a>
     </div>
 
+    <!-- Summary cards -->
     <section class="grid">
-        <div class="metric"><small>Total Complaints</small><strong class="blue">{{ total_complaints }}</strong></div>
-        <div class="metric"><small>Open Complaints</small><strong class="orange">{{ open_complaints }}</strong></div>
-        <div class="metric"><small>High Priority</small><strong class="red">{{ high_priority }}</strong></div>
-        <div class="metric"><small>Detected Duplicates</small><strong class="green">{{ duplicate_complaints }}</strong></div>
+        <div class="metric">
+            <small>Total Complaints</small>
+            <strong class="blue">{{ total_complaints }}</strong>
+        </div>
+
+        <div class="metric">
+            <small>Open Complaints</small>
+            <strong class="orange">{{ open_complaints }}</strong>
+        </div>
+
+        <div class="metric">
+            <small>High Priority</small>
+            <strong class="red">{{ high_priority }}</strong>
+        </div>
+
+        <div class="metric">
+            <small>Detected Duplicates</small>
+            <strong class="green">{{ duplicate_complaints }}</strong>
+        </div>
     </section>
 
+    <!-- Category statistics -->
     <section class="card">
         <h2>Complaints by Category</h2>
+
         {% for item in category_stats %}
             <div class="category-row">
                 <span>{{ item.category }}</span>
                 <strong>{{ item.count }}</strong>
             </div>
         {% empty %}
-            <p class="empty">No complaints have been submitted yet.</p>
+            <p class="empty">
+                No complaints have been submitted yet.
+            </p>
         {% endfor %}
     </section>
 
+    <!-- Search and filters -->
     <section class="card">
         <h2>Search and Filter Complaints</h2>
+
         <form method="get" action="{% url 'dashboard' %}">
             <div class="filters">
-                <input type="search" name="q" placeholder="Search student or complaint..." value="{{ search }}">
+
+                <input
+                    type="search"
+                    name="q"
+                    placeholder="Search student or complaint..."
+                    value="{{ search }}"
+                >
+
                 <select name="category">
                     <option value="">All Categories</option>
                     {% for item in categories %}
-                        <option value="{{ item }}" {% if selected_category == item %}selected{% endif %}>{{ item }}</option>
+                        <option
+                            value="{{ item }}"
+                            {% if selected_category == item %}selected{% endif %}
+                        >
+                            {{ item }}
+                        </option>
                     {% endfor %}
                 </select>
+
                 <select name="priority">
                     <option value="">All Priorities</option>
                     {% for item in priorities %}
-                        <option value="{{ item }}" {% if selected_priority == item %}selected{% endif %}>{{ item }}</option>
+                        <option
+                            value="{{ item }}"
+                            {% if selected_priority == item %}selected{% endif %}
+                        >
+                            {{ item }}
+                        </option>
                     {% endfor %}
                 </select>
+
                 <select name="status">
                     <option value="">All Statuses</option>
                     {% for item in statuses %}
-                        <option value="{{ item }}" {% if selected_status == item %}selected{% endif %}>{{ item }}</option>
+                        <option
+                            value="{{ item }}"
+                            {% if selected_status == item %}selected{% endif %}
+                        >
+                            {{ item }}
+                        </option>
                     {% endfor %}
                 </select>
+
                 <select name="department">
                     <option value="">All Departments</option>
                     {% for item in departments %}
-                        <option value="{{ item }}" {% if selected_department == item %}selected{% endif %}>{{ item }}</option>
+                        <option
+                            value="{{ item }}"
+                            {% if selected_department == item %}selected{% endif %}
+                        >
+                            {{ item }}
+                        </option>
                     {% endfor %}
                 </select>
+
             </div>
+
             <div class="filter-actions">
                 <button type="submit">Apply Filters</button>
                 <a href="{% url 'dashboard' %}">Clear filters</a>
@@ -177,64 +432,133 @@
         </form>
     </section>
 
+    <!-- Complaints table -->
     <section class="card">
         <h2>Complaints ({{ complaints|length }} shown)</h2>
+
         <div class="table-wrap">
             <table>
                 <thead>
                     <tr>
-                        <th>Student</th><th>Complaint</th><th>Category</th>
-                        <th>Priority</th><th>Department</th><th>Status</th>
-                        <th>Language</th><th>Duplicate</th><th>Date</th>
+                        <th>Student</th>
+                        <th>Complaint</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Language</th>
+                        <th>Duplicate</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for complaint in complaints %}
                     <tr class="{% if complaint.priority == 'High' %}high-row{% endif %} {% if complaint.is_duplicate %}duplicate-row{% endif %}">
+
                         <td>{{ complaint.student_name }}</td>
-                        <td class="description">{{ complaint.description }}</td>
-                        <td><span class="tag">{{ complaint.category }}</span></td>
+
+                        <td class="description">
+                            {{ complaint.description }}
+                        </td>
+
+                        <td>
+                            <span class="tag">
+                                {{ complaint.category }}
+                            </span>
+                        </td>
+
                         <td>
                             {% if complaint.priority == "High" %}
-                                <span class="tag tag-high">{{ complaint.priority }}</span>
+                                <span class="tag tag-high">
+                                    {{ complaint.priority }}
+                                </span>
                             {% elif complaint.priority == "Medium" %}
-                                <span class="tag tag-medium">{{ complaint.priority }}</span>
+                                <span class="tag tag-medium">
+                                    {{ complaint.priority }}
+                                </span>
                             {% else %}
-                                <span class="tag tag-low">{{ complaint.priority }}</span>
+                                <span class="tag tag-low">
+                                    {{ complaint.priority }}
+                                </span>
                             {% endif %}
                         </td>
+
                         <td>{{ complaint.department }}</td>
+
                         <td>
                             <form method="post" class="status-form">
                                 {% csrf_token %}
-                                <input type="hidden" name="complaint_id" value="{{ complaint.id }}">
-                                <select name="new_status" aria-label="Status for complaint {{ complaint.id }}">
-                                    <option value="Open" {% if complaint.status == "Open" %}selected{% endif %}>Open</option>
-                                    <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                    <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
+
+                                <input
+                                    type="hidden"
+                                    name="complaint_id"
+                                    value="{{ complaint.id }}"
+                                >
+
+                                <select
+                                    name="new_status"
+                                    aria-label="Status for complaint {{ complaint.id }}"
+                                >
+                                    <option
+                                        value="Open"
+                                        {% if complaint.status == "Open" %}selected{% endif %}
+                                    >
+                                        Open
+                                    </option>
+
+                                    <option
+                                        value="In Progress"
+                                        {% if complaint.status == "In Progress" %}selected{% endif %}
+                                    >
+                                        In Progress
+                                    </option>
+
+                                    <option
+                                        value="Resolved"
+                                        {% if complaint.status == "Resolved" %}selected{% endif %}
+                                    >
+                                        Resolved
+                                    </option>
                                 </select>
+
                                 <button type="submit">Save</button>
                             </form>
                         </td>
+
                         <td>{{ complaint.language }}</td>
+
                         <td>
                             {% if complaint.is_duplicate %}
-                                <span class="tag tag-duplicate">Possible duplicate</span>
+                                <span class="tag tag-duplicate">
+                                    Possible duplicate
+                                </span>
                             {% else %}
                                 <span class="tag">No</span>
                             {% endif %}
                         </td>
-                        <td>{{ complaint.created_at|date:"d M Y, H:i" }}</td>
+
+                        <td>
+                            {{ complaint.created_at|date:"d M Y, H:i" }}
+                        </td>
+
                     </tr>
                     {% empty %}
-                    <tr><td colspan="9" class="empty">No complaints match these filters.</td></tr>
+                    <tr>
+                        <td colspan="9" class="empty">
+                            No complaints match these filters.
+                        </td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </section>
 
-    <div class="footer">CampusCare · Smart Multilingual Campus Complaint Portal</div>
+    <div class="footer">
+        CampusCare · Smart Multilingual Campus Complaint Portal
+    </div>
+
 </div>
 </body>
 </html>
